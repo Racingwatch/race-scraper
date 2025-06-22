@@ -2,11 +2,13 @@ name: Daily scrape
 
 on:
   schedule:
-    - cron: '0 23 * * *'   # every day at 23:00 UTC (~9am Brisbane)
- workflow_dispatch:
- 
+    - cron: '0 23 * * *'     # every day at 23:00 UTC
+  workflow_dispatch:        # enables the “Run workflow” button
+
+jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
 
@@ -17,7 +19,7 @@ on:
 
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Run scraper
@@ -32,3 +34,4 @@ on:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
