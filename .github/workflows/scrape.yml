@@ -3,7 +3,7 @@ name: Daily scrape
 on:
   schedule:
     - cron: '0 23 * * *'   # every day at 23:00 UTC (~9 AM Brisbane)
-  workflow_dispatch:      # allows manual runs
+  workflow_dispatch:      # enables manual “Run workflow” button
 
 jobs:
   build:
@@ -29,6 +29,7 @@ jobs:
         run: ls -lah
 
       - name: Commit CSV (if changed)
+        continue-on-error: true
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,3 +43,5 @@ jobs:
           else
             echo "No changes to punters_meeting.csv — skipping commit."
           fi
+
+
