@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 23 * * *'   # every day at 23:00 UTC (~9am Brisbane)
  workflow_dispatch:
-jobs:
+ 
   build:
     runs-on: ubuntu-latest
     steps:
